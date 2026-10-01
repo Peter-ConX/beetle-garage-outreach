@@ -2,31 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --garage-bg: #F3F4F6;
+  --garage-secondary: #FFFFFF;
+  --garage-card: #FFFFFF;
+  --garage-elevated: #E5E7EB;
+  --garage-yellow: #D97706;
+  --garage-gold: #B45309;
+  --garage-text: #111827;
+  --garage-muted: #4B5563;
+  --garage-border: #D1D5DB;
+}
+
+.dark {
+  --garage-bg: #0D0F10;
+  --garage-secondary: #151719;
+  --garage-card: #1B1D1F;
+  --garage-elevated: #232629;
+  --garage-yellow: #F5B82E;
+  --garage-gold: #D89B20;
+  --garage-text: #F2F2F0;
+  --garage-muted: #A8AAAC;
+  --garage-border: #34373A;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
   }
   
   body {
-    background-color: #0D0F10;
-    color: #F2F2F0;
+    background-color: var(--garage-bg);
+    color: var(--garage-text);
     font-family: 'Space Grotesk', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
-/* Custom scrollbar for dark theme */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0D0F10;
+  background: var(--garage-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #232629;
+  background: var(--garage-elevated);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #F5B82E;
+  background: var(--garage-yellow);
 }

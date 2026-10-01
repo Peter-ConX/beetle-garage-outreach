@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, MessageSquare, Calendar, Menu, X, ChevronRight } from 'lucide-react';
+import { Phone, MessageSquare, Calendar, Menu, X, ChevronRight, Sun, Moon } from 'lucide-react';
 import { GARAGE_DATA } from '../config/garageData';
 
 interface HeaderProps {
-  onSelectService?: (serviceId: string) => void;
+  theme?: 'dark' | 'light';
+  onToggleTheme?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = () => {
+export const Header: React.FC<HeaderProps> = ({ theme = 'dark', onToggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -49,7 +50,7 @@ export const Header: React.FC<HeaderProps> = () => {
               <span className="font-heading text-xl sm:text-2xl font-bold tracking-wider uppercase text-garage-text leading-none group-hover:text-garage-yellow transition-colors">
                 BEETLE GARAGE
               </span>
-              <span className="font-mono text-[10px] sm:text-[11px] text-garage-yellow uppercase tracking-widest mt-0.5">
+              <span className="font-mono text-[10px] sm:text-[11px] text-garage-yellow uppercase tracking-widest mt-0.5 font-semibold">
                 CORBY • INDEPENDENT GARAGE
               </span>
             </div>
@@ -68,8 +69,32 @@ export const Header: React.FC<HeaderProps> = () => {
             ))}
           </nav>
 
-          {/* DESKTOP ACTION BUTTONS */}
+          {/* DESKTOP ACTION BUTTONS & THEME TOGGLE */}
           <div className="hidden lg:flex items-center gap-3">
+            
+            {/* Light / Dark Mode Toggle Button */}
+            {onToggleTheme && (
+              <button
+                type="button"
+                onClick={onToggleTheme}
+                className="p-2 rounded bg-garage-card border border-garage-border text-garage-yellow hover:border-garage-yellow transition-all flex items-center gap-1.5"
+                title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+                aria-label={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+              >
+                {theme === 'dark' ? (
+                  <>
+                    <Sun className="w-4 h-4 text-garage-yellow" />
+                    <span className="font-mono text-[11px] uppercase tracking-wider hidden xl:inline">LIGHT</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-4 h-4 text-garage-yellow" />
+                    <span className="font-mono text-[11px] uppercase tracking-wider hidden xl:inline">DARK</span>
+                  </>
+                )}
+              </button>
+            )}
+
             <a
               href={GARAGE_DATA.phoneTelLink}
               className="flex items-center gap-2 px-3 py-2 rounded bg-garage-card border border-garage-border hover:border-garage-yellow text-garage-text hover:text-garage-yellow transition-all text-xs font-mono"
@@ -97,15 +122,28 @@ export const Header: React.FC<HeaderProps> = () => {
             </a>
           </div>
 
-          {/* MOBILE HAMBURGER TOGGLE */}
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="xl:hidden p-2 rounded-lg bg-garage-card border border-garage-border text-garage-text hover:text-garage-yellow focus:outline-none"
-            aria-label="Toggle Navigation Menu"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* MOBILE TOGGLES (Theme & Hamburger) */}
+          <div className="flex xl:hidden items-center gap-2">
+            {onToggleTheme && (
+              <button
+                type="button"
+                onClick={onToggleTheme}
+                className="p-2 rounded bg-garage-card border border-garage-border text-garage-yellow"
+                aria-label="Toggle Theme"
+              >
+                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded bg-garage-card border border-garage-border text-garage-text hover:text-garage-yellow focus:outline-none"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -124,6 +162,21 @@ export const Header: React.FC<HeaderProps> = () => {
                 <ChevronRight className="w-4 h-4 text-garage-muted" />
               </a>
             ))}
+
+            {/* Mobile Theme Switch Button */}
+            {onToggleTheme && (
+              <button
+                type="button"
+                onClick={() => {
+                  onToggleTheme();
+                  setMobileMenuOpen(false);
+                }}
+                className="flex items-center justify-between font-heading text-lg uppercase tracking-wider text-garage-yellow py-2 border-b border-garage-border/40"
+              >
+                <span>THEME MODE ({theme === 'dark' ? 'LIGHT' : 'DARK'})</span>
+                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+            )}
 
             <div className="grid grid-cols-2 gap-3 pt-3">
               <a

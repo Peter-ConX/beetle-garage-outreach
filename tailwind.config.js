@@ -9,15 +9,15 @@ export default {
     extend: {
       colors: {
         garage: {
-          bg: '#0D0F10',
-          secondary: '#151719',
-          card: '#1B1D1F',
-          elevated: '#232629',
-          yellow: '#F5B82E',
-          gold: '#D89B20',
-          text: '#F2F2F0',
-          muted: '#A8AAAC',
-          border: '#34373A'
+          bg: 'var(--garage-bg)',
+          secondary: 'var(--garage-secondary)',
+          card: 'var(--garage-card)',
+          elevated: 'var(--garage-elevated)',
+          yellow: 'var(--garage-yellow)',
+          gold: 'var(--garage-gold)',
+          text: 'var(--garage-text)',
+          muted: 'var(--garage-muted)',
+          border: 'var(--garage-border)'
         }
       },
       fontFamily: {
