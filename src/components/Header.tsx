@@ -35,7 +35,7 @@ export const Header: React.FC<HeaderProps> = () => {
           : 'bg-garage-bg/80 backdrop-blur-sm py-5 border-b border-garage-border/50'
       }`}
     >
-      <div class="w-full max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           
           {/* LOGO */}
